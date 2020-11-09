@@ -1,0 +1,38 @@
+h1 {
+  text-align: center;
+}
+.history {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  height: 100%;
+  background-color: blue;
+}
+.request-response-container {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  height: 100%;
+
+  .request .response {
+    display: flex;
+    width: 100%;
+    height: 50%;
+  }
+
+  .request {
+    background-color: aquamarine;
+
+    .form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 5%;
+    }
+  }
+
+  .response {
+    background-color: darkmagenta;
+  }
+}
+
