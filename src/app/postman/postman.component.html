@@ -1,29 +1,33 @@
-<div class="history">
-  a
-  <h1>History</h1>
-  <ul>
-    <li *ngFor="let element of history">{{element.requestType + ': ' + element.requestText}}</li>
-  </ul>
-</div>
-<div class="request-response-container">
-  <div class="request">
-    b
-    <h1>Request</h1>
-    <form class="form" [formGroup]="requestForm" (ngSubmit)="buttonClicked()">
-      <label for="request-type">Method</label>
-      <select formControlName="requestType" name="requestType" id="request-type">
-        <option value="get">GET</option>
-        <option value="put">PUT</option>
-        <option value="post">POST</option>
-      </select>
-      <label for="request-text">Url</label>
-      <input formControlName="requestText" type="text" id="request-text">
-      <button>Send</button>
-    </form>
-    <Form></Form>
+<div class="postman-content">
+  <div class="history">
+    <h1>History</h1>
+    <ul>
+      <li *ngFor="let element of history">{{element.requestType + ': ' + element.requestText}}</li>
+    </ul>
   </div>
-  <div class="response">
-    c
-    <h1>Response</h1>
+  <div class="request-response-container">
+    <div class="request">
+      <h1>Request</h1>
+      <form class="form" [formGroup]="requestForm" (ngSubmit)="buttonClicked()">
+        <div>
+          <label for="request-type">Method</label>
+          <select formControlName="requestType" name="requestType" id="request-type">
+            <option value="get">GET</option>
+            <option value="put">PUT</option>
+            <option value="post">POST</option>
+          </select>
+        </div>
+        <div>
+          <label for="request-text">Url</label>
+          <input formControlName="requestText" type="text" id="request-text">
+        </div>
+        <button>Send</button>
+      </form>
+      <Form></Form>
+    </div>
+    <div class="response">
+      <h1>Response</h1>
+      <pre>{{response | json}}</pre>
+    </div>
   </div>
 </div>

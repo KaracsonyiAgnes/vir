@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
 
 interface StorageDataModel {
   requestType: string;
@@ -16,16 +17,17 @@ export class PostmanComponent implements OnInit {
     requestType: new FormControl(),
     requestText: new FormControl()
   });
-  history: StorageDataModel[] ;
+  history: StorageDataModel[];
+  response: string;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getStorageData(): void {
+  private getStorageData(): void {
     this.history = JSON.parse(localStorage.getItem('fullStorage'));
     console.log(this.history);
   }
 
-  refreshStorageData(): void {
+  private refreshStorageData(): void {
     const request = {
       requestType: this.requestForm.controls.requestType.value,
       requestText: this.requestForm.controls.requestText.value,
@@ -37,6 +39,16 @@ export class PostmanComponent implements OnInit {
     localStorage.setItem('fullStorage', JSON.stringify(storage));
 
     this.getStorageData();
+    this.callEndpoint(request);
+  }
+
+  private callEndpoint(request: StorageDataModel): void {
+    this.http[request.requestType](request.requestText,{})
+      .subscribe(response => this.refreshResponse(response))
+  }
+
+  private refreshResponse(response): void {
+    this.response = response;
   }
 
   ngOnInit(): void {

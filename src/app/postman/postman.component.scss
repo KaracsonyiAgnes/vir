@@ -1,23 +1,26 @@
+.postman-content {
+  display: flex;
+}
+
 h1 {
   text-align: center;
 }
 .history {
   display: flex;
   flex-direction: column;
-  width: 35%;
   height: 100%;
   background-color: blue;
 }
 .request-response-container {
   display: flex;
   flex-direction: column;
-  width: 65%;
+  flex-flow: wrap;
   height: 100%;
 
-  .request .response {
+  .request, .response {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 50%;
   }
 
   .request {
@@ -26,8 +29,19 @@ h1 {
     .form {
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-between;
       padding: 5%;
+
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      button {
+        display: flex;
+        align-self: flex-end;
+        margin: 0 25px;
+      }
     }
   }
 
