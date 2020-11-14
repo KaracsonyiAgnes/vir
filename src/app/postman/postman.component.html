@@ -17,19 +17,75 @@
     <div class="request">
       <h1>Request</h1>
       <form class="form" [formGroup]="requestForm" (ngSubmit)="formSent()">
-        <div>
-          <label for="request-type">Method</label>
-          <select formControlName="requestType" name="requestType" id="request-type">
-            <option value="get">GET</option>
-            <option value="put">PUT</option>
-            <option value="post">POST</option>
-          </select>
+
+        <div class="section">
+          <div>
+            <label for="request-type">Method</label>
+            <select formControlName="requestType" name="requestType" id="request-type">
+              <option value="get">GET</option>
+              <option value="put">PUT</option>
+              <option value="post">POST</option>
+            </select>
+          </div>
+          <div>
+            <label for="request-text">Url</label>
+            <input formControlName="requestText" type="text" id="request-text">
+          </div>
         </div>
-        <div>
-          <label for="request-text">Url</label>
-          <input formControlName="requestText" type="text" id="request-text">
+
+        <div class="section">
+          <div>
+            <p>Request headers</p>
+            <div class="section">
+              <div>
+                <label for="header-key">key</label>
+                <input formControlName="headerKey" type="text" id="header-key">
+              </div>
+              <div>
+                <label for="header-value">value</label>
+                <input formControlName="headerValue" type="text" id="header-value">
+              </div>
+            </div>
+            <div class="section">
+              <div>
+                <label for="header-key2">key</label>
+                <input formControlName="headerKey2" type="text" id="header-key2">
+              </div>
+              <div>
+                <label for="header-value2">value</label>
+                <input formControlName="headerValue2" type="text" id="header-value2">
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>Request parameters</p>
+            <div class="section">
+              <div>
+                <label for="param-key">key</label>
+                <input formControlName="paramKey" type="text" id="param-key">
+              </div>
+              <div>
+                <label for="param-value">value</label>
+                <input formControlName="paramValue" type="text" id="param-value">
+              </div>
+            </div>
+            <div class="section">
+              <div>
+                <label for="param-key2">key</label>
+                <input formControlName="paramKey2" type="text" id="param-key2">
+              </div>
+              <div>
+                <label for="param-value2">value</label>
+                <input formControlName="paramValue2" type="text" id="param-value2">
+              </div>
+            </div>
+          </div>
         </div>
-        <button>Send</button>
+
+        <div class="section">
+          <button>Send</button>
+        </div>
+
       </form>
       <Form></Form>
     </div>
@@ -37,7 +93,7 @@
     <div class="response">
       <h1>Response</h1>
 
-      <mat-tab-group >
+      <mat-tab-group>
         <mat-tab label="Preview">
           <pre>{{response | json}}</pre>
         </mat-tab>

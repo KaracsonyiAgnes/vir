@@ -1,19 +1,35 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {FormControl, FormGroup} from '@angular/forms';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 interface StorageDataModel {
   requestType: string;
   requestText: string;
 }
 
-interface Headers {
+interface RequestHeaders {
+  headerKey: string;
+  headerValue: string;
+  headerKey2: string;
+  headerValue2: string;
+}
+
+interface RequestParams {
+  paramKey: string;
+  paramValue: string;
+  paramKey2: string;
+  paramValue2: string;
+}
+
+interface ResponseHeaders {
   requestMethod: string;
   ok: string;
   status: string;
   statusText: string;
   type: string;
   url: string;
+  requestHeaders: string;
+  requestParams: string;
 }
 
 const STORAGE_KEY = 'fullStorage';
@@ -26,11 +42,19 @@ const STORAGE_KEY = 'fullStorage';
 export class PostmanComponent implements OnInit {
   requestForm = new FormGroup({
     requestType: new FormControl(),
-    requestText: new FormControl()
+    requestText: new FormControl(),
+    headerKey: new FormControl(),
+    headerValue: new FormControl(),
+    headerKey2: new FormControl(),
+    headerValue2: new FormControl(),
+    paramKey: new FormControl(),
+    paramValue: new FormControl(),
+    paramKey2: new FormControl(),
+    paramValue2: new FormControl(),
   });
   history: StorageDataModel[];
   response: string;
-  headers: Headers;
+  headers: ResponseHeaders;
 
   constructor(private http: HttpClient) {
   }
@@ -68,24 +92,60 @@ export class PostmanComponent implements OnInit {
   }
 
   private callEndpoint(request: StorageDataModel): void {
+
+    const headers = {
+      headerKey: this.requestForm.controls.headerKey.value,
+      headerValue: this.requestForm.controls.headerValue.value,
+      headerKey2: this.requestForm.controls.headerKey2.value,
+      headerValue2: this.requestForm.controls.headerValue2.value,
+    } as RequestHeaders;
+
+    const params = {
+      paramKey: this.requestForm.controls.paramKey.value,
+      paramValue: this.requestForm.controls.paramValue.value,
+      paramKey2: this.requestForm.controls.paramKey2.value,
+      paramValue2: this.requestForm.controls.paramValue2.value,
+    } as RequestParams;
+
+    const reqHeaders = this.setHeaders(headers);
+    const reqParams = this.setParams(params);
+
     this.http[request.requestType](request.requestText, {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json'),
+      headers: reqHeaders,
+      params: reqParams,
       observe: 'response'
     })
-      .subscribe(response => this.refreshResponse(response));
+      .subscribe(response => this.refreshResponse(response, headers, params));
   }
 
-  private refreshResponse(response): void {
+  private setHeaders(headers: RequestHeaders): HttpHeaders {
+    const reqHeaders = new HttpHeaders();
+
+    headers.headerKey && headers.headerValue ? reqHeaders.set(headers.headerKey, headers.headerValue) : '';
+    headers.headerKey2 && headers.headerValue2 ? reqHeaders.set(headers.headerKey2, headers.headerValue2) : '';
+    return reqHeaders;
+  }
+
+  private setParams(params: RequestParams): HttpParams {
+    const reqParams = new HttpParams();
+
+    params.paramKey && params.paramValue ? reqParams.set(params.paramKey, params.paramValue) : '';
+    params.paramKey2 && params.paramValue2 ? reqParams.set(params.paramKey2, params.paramValue2) : '';
+    return reqParams;
+  }
+
+  private refreshResponse(response, headers: RequestHeaders, params: RequestParams): void {
     this.response = response.body;
-    console.log(response.headers.keys());
+    console.log(headers);
     this.headers = {
       requestMethod: this.requestForm.controls.requestType.value.toString().toUpperCase(),
       ok: response.ok,
       status: response.status,
       statusText: response.statusText,
       type: response.type,
-      url: response.url
-    } as Headers;
+      url: response.url,
+      requestHeaders: Object.values(headers).filter(string => !!string).toString(),
+      requestParams: Object.values(params).filter(string => !!string).toString()
+    } as ResponseHeaders;
   }
 }

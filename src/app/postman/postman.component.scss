@@ -4,14 +4,14 @@ $postman-white: #eeeeee;
   display: flex;
 }
 
-h1 {
+h1, p, label {
   text-align: center;
 }
 
 .history {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 80.5vh;
   background-color: $postman-white;
   padding: 5vh;
   overflow: auto;
@@ -42,24 +42,37 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 5vh;
     border: 2px solid grey;
   }
 
   .request {
     background-color: $postman-white;
-    height: 20vh;
+    height: 40vh;
+    padding: 5vh 0;
 
     .form {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
-      padding: 5%;
+
+      #request-text {
+        width: 300px;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .section:not(:last-of-type) {
+        margin-bottom: 30px;
+      }
 
       div {
         display: flex;
         flex-direction: column;
-        margin: 0 25px;
+        margin: 0 5px;
       }
 
       button {
@@ -71,8 +84,9 @@ h1 {
   }
 
   .response {
-    height: 50vh;
+    height: 30vh;
     overflow: auto;
+    padding: 5vh;
   }
 }
 
