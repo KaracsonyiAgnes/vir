@@ -1,14 +1,19 @@
 <div class="postman-content">
+
   <div class="history">
     <h1>History</h1>
     <div>
       <button class="clearHistoryButton" (click)="clearHistory()">Clear History</button>
     </div>
     <ul>
-      <li *ngFor="let element of history">{{element.requestType + ': ' + element.requestText}}</li>
+      <li *ngFor="let element of history">{{element.requestType + ': ' + element.requestText}}
+        <mat-divider></mat-divider>
+      </li>
     </ul>
   </div>
+
   <div class="request-response-container">
+
     <div class="request">
       <h1>Request</h1>
       <form class="form" [formGroup]="requestForm" (ngSubmit)="formSent()">
@@ -28,9 +33,19 @@
       </form>
       <Form></Form>
     </div>
+
     <div class="response">
       <h1>Response</h1>
-      <pre>{{response | json}}</pre>
+
+      <mat-tab-group >
+        <mat-tab label="Preview">
+          <pre>{{response | json}}</pre>
+        </mat-tab>
+        <mat-tab label="Headers">
+          <pre>{{headers | json}}</pre>
+        </mat-tab>
+      </mat-tab-group>
+
     </div>
   </div>
 </div>

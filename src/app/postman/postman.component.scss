@@ -1,3 +1,5 @@
+$postman-white: #eeeeee;
+
 .postman-content {
   display: flex;
 }
@@ -5,14 +7,16 @@
 h1 {
   text-align: center;
 }
+
 .history {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  background-color: blue;
-  padding: 0 5%;
+  height: 80vh;
+  background-color: $postman-white;
+  padding: 5vh;
   overflow: auto;
   width: 35%;
+  border: 2px solid grey;
 
   .clearHistoryButton {
     float: right;
@@ -20,23 +24,30 @@ h1 {
 
   ul {
     padding: 0 5%;
+
+    li {
+      margin-bottom: 10px;
+    }
   }
 }
+
 .request-response-container {
   display: flex;
   flex-direction: column;
   flex-flow: wrap;
   height: 100%;
+  background-color: $postman-white;
 
   .request, .response {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 5vh;
+    border: 2px solid grey;
   }
 
   .request {
-    background-color: aquamarine;
+    background-color: $postman-white;
     height: 20vh;
 
     .form {
@@ -60,7 +71,6 @@ h1 {
   }
 
   .response {
-    background-color: darkmagenta;
     height: 50vh;
     overflow: auto;
   }
