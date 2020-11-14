@@ -24,7 +24,6 @@ export class PostmanComponent implements OnInit {
 
   private getStorageData(): void {
     this.history = JSON.parse(localStorage.getItem('fullStorage'));
-    console.log(this.history);
   }
 
   private refreshStorageData(): void {
@@ -55,8 +54,12 @@ export class PostmanComponent implements OnInit {
     this.getStorageData();
   }
 
-  buttonClicked(): void {
+  formSent(): void {
     this.refreshStorageData();
   }
 
+  clearHistory() {
+    localStorage.clear();
+    this.getStorageData();
+  }
 }
